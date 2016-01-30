@@ -37,6 +37,11 @@ public class ContactsViewModel extends AbstractViewModel<IContactsView> {
     }
 
     @Override
+    public void onModelRemoved() {
+        super.onModelRemoved();
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
 
@@ -89,7 +94,8 @@ public class ContactsViewModel extends AbstractViewModel<IContactsView> {
             ContactsApplication.getApiClient().requestContacts();
         }
         else {
-            showOffline();
+            setProgressVisible(false);
+            showMessage("No connection");
         }
     }
 
@@ -101,12 +107,6 @@ public class ContactsViewModel extends AbstractViewModel<IContactsView> {
                 getView().showProgress();
             else
                 getView().hideProgress();
-        }
-    }
-
-    private void showOffline() {
-        if (getView() != null) {
-            getView().showOffline();
         }
     }
 

@@ -16,13 +16,11 @@ import com.ondrejruttkay.contacts.model.Contact;
 import com.ondrejruttkay.contacts.viewmodel.ContactsViewModel;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
-public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecyclerViewAdapter.BindingHolder> {
+public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.BindingHolder> {
 
     private ContactsViewModel contactsViewModel;
 
-    public ContactRecyclerViewAdapter(ContactsViewModel contactsViewModel) {
+    public ContactsRecyclerViewAdapter(ContactsViewModel contactsViewModel) {
         this.contactsViewModel = contactsViewModel;
     }
 

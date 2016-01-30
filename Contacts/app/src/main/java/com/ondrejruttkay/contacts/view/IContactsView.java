@@ -12,7 +12,6 @@ public interface IContactsView extends IView {
     void hideProgress();
     void showContactDetail(Contact contact);
     void showNoData();
-    void showOffline();
     void refresh();
     void showContacts();
     void showMessage(String message);

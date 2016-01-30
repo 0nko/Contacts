@@ -1,35 +1,31 @@
 package com.ondrejruttkay.contacts.view.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.GsonBuilder;
+import com.ondrejruttkay.contacts.ContactsConfig;
 import com.ondrejruttkay.contacts.R;
 import com.ondrejruttkay.contacts.databinding.FragmentContactsBinding;
 import com.ondrejruttkay.contacts.model.Contact;
 import com.ondrejruttkay.contacts.view.IContactsView;
-import com.ondrejruttkay.contacts.view.adapter.ContactRecyclerViewAdapter;
+import com.ondrejruttkay.contacts.view.activity.ContactDetailActivity;
+import com.ondrejruttkay.contacts.view.adapter.ContactsRecyclerViewAdapter;
 import com.ondrejruttkay.contacts.viewmodel.ContactsViewModel;
 
 import eu.inloop.viewmodel.base.ViewModelBaseFragment;
 
 public class ContactsFragment extends ViewModelBaseFragment<IContactsView, ContactsViewModel> implements IContactsView {
 
-    FragmentContactsBinding binding;
+    private FragmentContactsBinding binding;
 
     public ContactsFragment() {
     }
@@ -57,7 +53,7 @@ public class ContactsFragment extends ViewModelBaseFragment<IContactsView, Conta
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        ContactRecyclerViewAdapter adapter = new ContactRecyclerViewAdapter(getViewModel());
+        ContactsRecyclerViewAdapter adapter = new ContactsRecyclerViewAdapter(getViewModel());
         binding.contactsRecycler.setAdapter(adapter);
         binding.contactsRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -77,19 +73,14 @@ public class ContactsFragment extends ViewModelBaseFragment<IContactsView, Conta
 
     @Override
     public void showContactDetail(Contact contact) {
+        Intent intent = new Intent(getContext(), ContactDetailActivity.class);
+        intent.putExtra(ContactsConfig.CONTACT_INTENT_KEY, new GsonBuilder().create().toJson(contact));
+        getActivity().startActivity(intent);
     }
 
     @Override
     public void showNoData() {
         binding.containerEmpty.setVisibility(View.VISIBLE);
-        binding.containerOffline.setVisibility(View.GONE);
-        binding.contactsRecycler.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showOffline() {
-        binding.containerEmpty.setVisibility(View.GONE);
-        binding.containerOffline.setVisibility(View.VISIBLE);
         binding.contactsRecycler.setVisibility(View.GONE);
     }
 
@@ -101,7 +92,6 @@ public class ContactsFragment extends ViewModelBaseFragment<IContactsView, Conta
     @Override
     public void showContacts() {
         binding.containerEmpty.setVisibility(View.GONE);
-        binding.containerOffline.setVisibility(View.GONE);
         binding.contactsRecycler.setVisibility(View.VISIBLE);
     }
 

@@ -4,6 +4,8 @@ import com.ondrejruttkay.contacts.ContactsApplication;
 import com.ondrejruttkay.contacts.ContactsConfig;
 import com.ondrejruttkay.contacts.event.ContactsRequestErrorEvent;
 import com.ondrejruttkay.contacts.event.ContactsReceivedEvent;
+import com.ondrejruttkay.contacts.event.OrdersReceivedEvent;
+import com.ondrejruttkay.contacts.event.OrdersRequestErrorEvent;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -13,6 +15,7 @@ import retrofit2.GsonConverterFactory;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Created by onko on 28/01/2016.
@@ -37,6 +40,9 @@ public class InloopContactsApiClient {
     interface ContactsService {
         @GET("contactendpoint/v1/contact")
         Call<ContactsResponse> getContacts();
+
+        @GET("orderendpoint/v1/order/{id}")
+        Call<OrdersResponse> getOrders(@Path("id") String id);
     }
 
     public void requestContacts() {
@@ -62,7 +68,35 @@ public class InloopContactsApiClient {
 
             @Override
             public void onFailure(Throwable retrofitError) {
-//                OnkoCycleApp.Bus.post(new AddressSearchError(location, retrofitError.getMessage()));
+                ContactsApplication.getEventBus().post(new ContactsRequestErrorEvent("Error: " + retrofitError.getMessage()));
+            }
+        });
+    }
+
+    public void requestOrders(String id) {
+        Call<OrdersResponse> call = contactsService.getOrders(id);
+        call.enqueue(new Callback<OrdersResponse>() {
+            @Override
+            public void onResponse(Response<OrdersResponse> response) {
+                OrdersResponse ordersResponse = response.body();
+                if (response.isSuccess()) {
+                    if (ordersResponse != null && ordersResponse.getOrders() != null) {
+                        ContactsApplication.getEventBus().post(new OrdersReceivedEvent(ordersResponse.getOrders()));
+                    } else {
+                        ContactsApplication.getEventBus().post(new OrdersRequestErrorEvent("Error: No data received"));
+                    }
+                } else {
+                    if (ordersResponse.getError() != null) {
+                        ContactsApplication.getEventBus().post(new OrdersRequestErrorEvent("Error: " + ordersResponse.getError().getMessage()));
+                    } else {
+                        ContactsApplication.getEventBus().post(new OrdersRequestErrorEvent("Unknown server error"));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable retrofitError) {
+                ContactsApplication.getEventBus().post(new OrdersRequestErrorEvent("Error: " + retrofitError.getMessage()));
             }
         });
     }

@@ -3,4 +3,5 @@
     <string name="placeholder_offline">No network.</string>
     <string name="placeholder_empty">No data.</string>
     <string name="activity_title_new_contact">Add New Contact</string>
+    <string name="phone">Phone</string>
 </resources>
