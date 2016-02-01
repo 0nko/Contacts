@@ -1,6 +1,5 @@
 package com.ondrejruttkay.contacts.viewmodel;
 
-import android.database.Observable;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;

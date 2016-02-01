@@ -9,14 +9,9 @@ import com.google.gson.GsonBuilder;
 import com.ondrejruttkay.contacts.ContactsApplication;
 import com.ondrejruttkay.contacts.model.Contact;
 
-import java.io.FilterInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import okhttp3.internal.DiskLruCache;
-import okhttp3.internal.Util;
 
 /**
  * Created by onko on 29/01/2016.

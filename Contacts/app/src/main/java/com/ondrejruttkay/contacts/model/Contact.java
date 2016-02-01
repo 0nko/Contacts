@@ -2,9 +2,7 @@ package com.ondrejruttkay.contacts.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.Observable;
 import android.view.View;
-import android.widget.Toast;
 
 import com.ondrejruttkay.contacts.BR;
 import com.ondrejruttkay.contacts.ContactsApplication;

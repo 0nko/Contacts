@@ -1,25 +1,17 @@
 package com.ondrejruttkay.contacts.view.fragment;
 
-import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.ondrejruttkay.contacts.R;
-import com.ondrejruttkay.contacts.databinding.FragmentContactDetailBinding;
 import com.ondrejruttkay.contacts.databinding.FragmentNewContactBinding;
-import com.ondrejruttkay.contacts.model.Contact;
-import com.ondrejruttkay.contacts.view.IContactDetailView;
 import com.ondrejruttkay.contacts.view.INewContactView;
-import com.ondrejruttkay.contacts.view.adapter.OrdersRecyclerViewAdapter;
-import com.ondrejruttkay.contacts.viewmodel.ContactDetailViewModel;
 import com.ondrejruttkay.contacts.viewmodel.NewContactViewModel;
 
 import eu.inloop.viewmodel.base.ViewModelBaseFragment;

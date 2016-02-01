@@ -5,8 +5,8 @@ import android.util.Log;
 import com.ondrejruttkay.contacts.ContactsApplication;
 import com.ondrejruttkay.contacts.ContactsConfig;
 import com.ondrejruttkay.contacts.event.ContactAddedEvent;
-import com.ondrejruttkay.contacts.event.ContactsRequestErrorEvent;
 import com.ondrejruttkay.contacts.event.ContactsReceivedEvent;
+import com.ondrejruttkay.contacts.event.ContactsRequestErrorEvent;
 import com.ondrejruttkay.contacts.event.NewContactRequestErrorEvent;
 import com.ondrejruttkay.contacts.event.OrdersReceivedEvent;
 import com.ondrejruttkay.contacts.event.OrdersRequestErrorEvent;
@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Cache;
-import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

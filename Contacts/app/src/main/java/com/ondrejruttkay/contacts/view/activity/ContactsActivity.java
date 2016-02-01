@@ -1,7 +1,6 @@
 package com.ondrejruttkay.contacts.view.activity;
 
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,7 +10,6 @@ import com.ondrejruttkay.contacts.ContactsApplication;
 import com.ondrejruttkay.contacts.R;
 import com.ondrejruttkay.contacts.databinding.ActivityContactsBinding;
 import com.ondrejruttkay.contacts.event.AddContactEvent;
-import com.ondrejruttkay.contacts.viewmodel.ContactsViewModel;
 
 import eu.inloop.viewmodel.base.ViewModelBaseActivity;
 

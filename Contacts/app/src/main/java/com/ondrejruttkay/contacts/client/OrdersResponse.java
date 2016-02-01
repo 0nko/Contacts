@@ -1,6 +1,5 @@
 package com.ondrejruttkay.contacts.client;
 
-import com.ondrejruttkay.contacts.model.Contact;
 import com.ondrejruttkay.contacts.model.Order;
 
 import java.util.List;

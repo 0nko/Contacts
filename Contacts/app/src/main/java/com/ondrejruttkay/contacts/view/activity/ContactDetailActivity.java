@@ -3,15 +3,11 @@ package com.ondrejruttkay.contacts.view.activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 import com.google.gson.GsonBuilder;
 import com.ondrejruttkay.contacts.ContactsConfig;
 import com.ondrejruttkay.contacts.R;
 import com.ondrejruttkay.contacts.databinding.ActivityContactDetailBinding;
-import com.ondrejruttkay.contacts.databinding.ActivityContactsBinding;
 import com.ondrejruttkay.contacts.model.Contact;
 import com.ondrejruttkay.contacts.view.fragment.ContactDetailFragment;
 

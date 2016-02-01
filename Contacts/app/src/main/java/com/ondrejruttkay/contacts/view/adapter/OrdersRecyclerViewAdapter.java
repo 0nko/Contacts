@@ -1,21 +1,16 @@
 package com.ondrejruttkay.contacts.view.adapter;
 
-import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.ondrejruttkay.contacts.BR;
 import com.ondrejruttkay.contacts.R;
-import com.ondrejruttkay.contacts.model.Contact;
 import com.ondrejruttkay.contacts.model.Order;
 import com.ondrejruttkay.contacts.viewmodel.ContactDetailViewModel;
-import com.squareup.picasso.Picasso;
 
 public class OrdersRecyclerViewAdapter extends RecyclerView.Adapter<OrdersRecyclerViewAdapter.BindingHolder> {
 
