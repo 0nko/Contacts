@@ -80,15 +80,14 @@ public class ContactDetailViewModel extends AbstractViewModel<IContactDetailView
                 getView().refresh();
                 getView().showOrders();
             } else {
-                getView().showNoOrders();
+                getView().showEmpty();
             }
         }
     }
 
     private void showProgress() {
-
         if (getView() != null) {
-            getView().showProgress();
+            getView().showLoading();
         }
     }
 

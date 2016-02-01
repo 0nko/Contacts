@@ -8,11 +8,12 @@ import eu.inloop.viewmodel.IView;
  * Created by onko on 27/01/2016.
  */
 public interface IContactsView extends IView {
-    void showProgress();
-    void hideProgress();
+    void showLoading();
+    void hideLoading();
     void showContactDetail(Contact contact);
-    void showNoData();
-    void refresh();
+    void addNewContact();
+    void showEmpty();
+    void refreshContacts();
     void showContacts();
     void showMessage(String message);
 }

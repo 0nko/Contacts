@@ -18,6 +18,7 @@ import com.ondrejruttkay.contacts.databinding.FragmentContactsBinding;
 import com.ondrejruttkay.contacts.model.Contact;
 import com.ondrejruttkay.contacts.view.IContactsView;
 import com.ondrejruttkay.contacts.view.activity.ContactDetailActivity;
+import com.ondrejruttkay.contacts.view.activity.NewContactActivity;
 import com.ondrejruttkay.contacts.view.adapter.ContactsRecyclerViewAdapter;
 import com.ondrejruttkay.contacts.viewmodel.ContactsViewModel;
 
@@ -48,6 +49,7 @@ public class ContactsFragment extends ViewModelBaseFragment<IContactsView, Conta
                 container,
                 false);
 
+        setRetainInstance(true);
         return binding.getRoot();
     }
 
@@ -62,12 +64,12 @@ public class ContactsFragment extends ViewModelBaseFragment<IContactsView, Conta
     }
 
     @Override
-    public void showProgress() {
+    public void showLoading() {
         binding.swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
-    public void hideProgress() {
+    public void hideLoading() {
         binding.swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -79,13 +81,19 @@ public class ContactsFragment extends ViewModelBaseFragment<IContactsView, Conta
     }
 
     @Override
-    public void showNoData() {
+    public void addNewContact() {
+        Intent intent = new Intent(getContext(), NewContactActivity.class);
+        getActivity().startActivity(intent);
+    }
+
+    @Override
+    public void showEmpty() {
         binding.containerEmpty.setVisibility(View.VISIBLE);
         binding.contactsRecycler.setVisibility(View.GONE);
     }
 
     @Override
-    public void refresh() {
+    public void refreshContacts() {
         binding.contactsRecycler.getAdapter().notifyDataSetChanged();
     }
 

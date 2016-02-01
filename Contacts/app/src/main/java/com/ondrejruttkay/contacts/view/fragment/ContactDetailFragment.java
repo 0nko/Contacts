@@ -23,13 +23,6 @@ public class ContactDetailFragment extends ViewModelBaseFragment<IContactDetailV
     private FragmentContactDetailBinding binding;
     private Contact contact;
 
-    public ContactDetailFragment() {
-    }
-
-    public ContactDetailFragment(Contact contact) {
-        this.contact = contact;
-    }
-
     @Nullable
     @Override
     public Class<ContactDetailViewModel> getViewModelClass() {
@@ -37,7 +30,13 @@ public class ContactDetailFragment extends ViewModelBaseFragment<IContactDetailV
     }
 
     public static ContactDetailFragment newInstance(Contact contact) {
-        return new ContactDetailFragment(contact);
+        ContactDetailFragment fragment = new ContactDetailFragment();
+        fragment.setArguments(contact);
+        return fragment;
+    }
+
+    public void setArguments(Contact contact) {
+        this.contact = contact;
     }
 
     @Override
@@ -72,7 +71,7 @@ public class ContactDetailFragment extends ViewModelBaseFragment<IContactDetailV
     }
 
     @Override
-    public void showProgress() {
+    public void showLoading() {
         binding.containerProgress.setVisibility(View.VISIBLE);
         binding.containerEmpty.setVisibility(View.GONE);
         binding.ordersRecycler.setVisibility(View.GONE);
@@ -86,7 +85,7 @@ public class ContactDetailFragment extends ViewModelBaseFragment<IContactDetailV
     }
 
     @Override
-    public void showNoOrders() {
+    public void showEmpty() {
         binding.containerProgress.setVisibility(View.GONE);
         binding.containerEmpty.setVisibility(View.VISIBLE);
         binding.ordersRecycler.setVisibility(View.GONE);

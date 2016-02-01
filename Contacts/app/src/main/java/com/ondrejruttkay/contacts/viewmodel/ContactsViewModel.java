@@ -1,11 +1,12 @@
 package com.ondrejruttkay.contacts.viewmodel;
 
 import android.os.Bundle;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.ondrejruttkay.contacts.ContactsApplication;
+import com.ondrejruttkay.contacts.event.AddContactEvent;
+import com.ondrejruttkay.contacts.event.ContactAddedEvent;
 import com.ondrejruttkay.contacts.event.ContactSelectedEvent;
 import com.ondrejruttkay.contacts.event.ContactsRequestErrorEvent;
 import com.ondrejruttkay.contacts.event.ContactsReceivedEvent;
@@ -14,8 +15,6 @@ import com.ondrejruttkay.contacts.utility.NetworkManager;
 import com.ondrejruttkay.contacts.view.IContactsView;
 import com.squareup.otto.Subscribe;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,6 +84,18 @@ public class ContactsViewModel extends AbstractViewModel<IContactsView> {
         }
     }
 
+    @Subscribe
+    public void onAddNewContact(AddContactEvent addContactEvent) {
+        if (getView() != null) {
+            getView().addNewContact();
+        }
+    }
+
+    @Subscribe
+    public void onNewContactAdded(ContactAddedEvent contactAddedEvent) {
+        loadContacts();
+    }
+
     public void loadContacts() {
 
         contacts = ContactsApplication.getCache().loadContacts();
@@ -104,9 +115,9 @@ public class ContactsViewModel extends AbstractViewModel<IContactsView> {
 
         if (getView() != null) {
             if (visible)
-                getView().showProgress();
+                getView().showLoading();
             else
-                getView().hideProgress();
+                getView().hideLoading();
         }
     }
 
@@ -114,10 +125,10 @@ public class ContactsViewModel extends AbstractViewModel<IContactsView> {
         if (getView() != null) {
             if (contacts.size() > 0) {
                 getView().showContacts();
-                getView().refresh();
+                getView().refreshContacts();
             }
             else {
-                getView().showNoData();
+                getView().showEmpty();
             }
         }
     }

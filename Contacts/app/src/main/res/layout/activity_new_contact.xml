@@ -12,8 +12,8 @@
 
         <include android:id="@+id/toolbar" layout="@layout/placeholder_toolbar" />
 
-        <fragment android:id="@+id/contacts_fragment"
-            android:name="com.ondrejruttkay.contacts.view.fragment.ContactsFragment"
+        <fragment android:id="@+id/new_contact_fragment"
+            android:name="com.ondrejruttkay.contacts.view.fragment.NewContactFragment"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             tools:layout="@layout/fragment_contacts" />

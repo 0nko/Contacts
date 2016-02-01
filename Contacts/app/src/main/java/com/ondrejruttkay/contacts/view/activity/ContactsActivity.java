@@ -7,8 +7,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.ondrejruttkay.contacts.ContactsApplication;
 import com.ondrejruttkay.contacts.R;
 import com.ondrejruttkay.contacts.databinding.ActivityContactsBinding;
+import com.ondrejruttkay.contacts.event.AddContactEvent;
 import com.ondrejruttkay.contacts.viewmodel.ContactsViewModel;
 
 import eu.inloop.viewmodel.base.ViewModelBaseActivity;
@@ -39,6 +41,7 @@ public class ContactsActivity extends ViewModelBaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add_contact:
+                ContactsApplication.getEventBus().post(new AddContactEvent());
                 break;
         }
         return true;
