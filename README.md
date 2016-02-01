@@ -56,13 +56,10 @@ Testing
 * Monkey test (fast clicking, changing orientation)
 
 
-Publishing
-==========
+Build
+=====
 
-* Set proper versions in the main build script
-* Check build config fields in the main build script
-* Update text info in changelog/about/help
-* Add analytics events for new features
+[Generated APK build](Contacts.apk)
 
 
 Developed by
