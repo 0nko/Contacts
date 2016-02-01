@@ -36,11 +36,6 @@ public class ContactsViewModel extends AbstractViewModel<IContactsView> {
     }
 
     @Override
-    public void onModelRemoved() {
-        super.onModelRemoved();
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
 
