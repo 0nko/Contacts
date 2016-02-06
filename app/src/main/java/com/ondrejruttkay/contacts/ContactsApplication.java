@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 
 import com.ondrejruttkay.contacts.client.InloopContactsApiClient;
-import com.ondrejruttkay.contacts.utility.DiskCache;
 import com.squareup.otto.Bus;
 
 /**
@@ -14,7 +13,6 @@ public class ContactsApplication extends Application {
     private static ContactsApplication instance;
     private static Bus eventBus;
     private static InloopContactsApiClient apiClient;
-    private static DiskCache cache;
 
     public ContactsApplication() {
         instance = this;
@@ -26,11 +24,6 @@ public class ContactsApplication extends Application {
 
         eventBus = new Bus();
         apiClient = new InloopContactsApiClient();
-        cache = new DiskCache();
-    }
-
-    public static DiskCache getCache() {
-        return cache;
     }
 
     public static InloopContactsApiClient getApiClient() {

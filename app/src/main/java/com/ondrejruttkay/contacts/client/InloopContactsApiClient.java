@@ -79,6 +79,10 @@ public class InloopContactsApiClient {
         @GET("contactendpoint/v1/contact")
         Call<ContactsResponse> getContacts();
 
+        @Headers({"Cache-Control: public, only-if-cached, max-stale=" + 60 * 60 * 24 * 28})
+        @GET("contactendpoint/v1/contact")
+        Call<ContactsResponse> getContactsFromCache();
+
         @GET("orderendpoint/v1/order/{id}")
         Call<OrdersResponse> getOrders(@Path("id") String id);
 
@@ -87,33 +91,43 @@ public class InloopContactsApiClient {
         Call<NewContactResponse> addContact(@Body Contact contact);
     }
 
-    public void requestContacts() {
-        Call<ContactsResponse> call = contactsService.getContacts();
-        call.enqueue(new Callback<ContactsResponse>() {
-            @Override
-            public void onResponse(Response<ContactsResponse> response) {
-                ContactsResponse contactsResponse = response.body();
+    private Callback<ContactsResponse> contactsCallback = new Callback<ContactsResponse>() {
+        @Override
+        public void onResponse(Response<ContactsResponse> response) {
+            ContactsResponse contactsResponse = response.body();
 
-                if (response.isSuccess()) {
-                    if (contactsResponse != null && contactsResponse.getContacts() != null) {
-                        ContactsApplication.getEventBus().post(new ContactsReceivedEvent(contactsResponse.getContacts()));
-                    } else {
-                        ContactsApplication.getEventBus().post(new ContactsRequestErrorEvent("Error: No data received"));
-                    }
+            Log.d("Contacts cache", "" + response.raw().cacheResponse());
+            Log.d("Contacts network", "" + response.raw().networkResponse());
+
+            if (response.isSuccess()) {
+                if (contactsResponse != null && contactsResponse.getContacts() != null) {
+                    ContactsApplication.getEventBus().post(new ContactsReceivedEvent(contactsResponse.getContacts()));
                 } else {
-                    if (contactsResponse != null && contactsResponse.getError() != null) {
-                        ContactsApplication.getEventBus().post(new ContactsRequestErrorEvent("Error: " + contactsResponse.getError().getMessage()));
-                    } else {
-                        ContactsApplication.getEventBus().post(new ContactsRequestErrorEvent("Unknown server error"));
-                    }
+                    ContactsApplication.getEventBus().post(new ContactsRequestErrorEvent("Error: No data received"));
+                }
+            } else {
+                if (contactsResponse != null && contactsResponse.getError() != null) {
+                    ContactsApplication.getEventBus().post(new ContactsRequestErrorEvent("Error: " + contactsResponse.getError().getMessage()));
+                } else {
+                    ContactsApplication.getEventBus().post(new ContactsRequestErrorEvent("Unknown server error"));
                 }
             }
+        }
 
-            @Override
-            public void onFailure(Throwable retrofitError) {
-                ContactsApplication.getEventBus().post(new ContactsRequestErrorEvent("Error: " + retrofitError.getMessage()));
-            }
-        });
+        @Override
+        public void onFailure(Throwable retrofitError) {
+            ContactsApplication.getEventBus().post(new ContactsRequestErrorEvent("Error: " + retrofitError.getMessage()));
+        }
+    };
+
+    public void requestContactsFromCache() {
+        Call<ContactsResponse> call = contactsService.getContactsFromCache();
+        call.enqueue(contactsCallback);
+    }
+
+    public void requestContacts() {
+        Call<ContactsResponse> call = contactsService.getContacts();
+        call.enqueue(contactsCallback);
     }
 
     public void requestOrders(String id) {

@@ -59,8 +59,6 @@ public class ContactsViewModel extends AbstractViewModel<IContactsView> {
     @Subscribe
     public void onContactsReceived(ContactsReceivedEvent contactsEvent) {
         contacts = contactsEvent.getContacts();
-        ContactsApplication.getCache().saveContacts(contacts);
-
         setProgressVisible(false);
         showContacts();
     }
@@ -93,7 +91,7 @@ public class ContactsViewModel extends AbstractViewModel<IContactsView> {
 
     public void loadContacts() {
 
-        contacts = ContactsApplication.getCache().loadContacts();
+        ContactsApplication.getApiClient().requestContactsFromCache();
 
         if (NetworkManager.isOnline()) {
             setProgressVisible(true);
